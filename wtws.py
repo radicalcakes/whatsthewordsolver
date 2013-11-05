@@ -53,7 +53,6 @@ class IndexHandler(tornado.web.RequestHandler):
 					print s
 			if len(s) == int(self.length):
 				l.append(s)
-				print l
 		self.render("index.html", answers=l)
 
 def main():
