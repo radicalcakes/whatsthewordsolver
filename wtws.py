@@ -29,7 +29,7 @@ class Application(tornado.web.Application):
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            debug=True,
+            debug=False,
             autoescape=None
         )
         tornado.web.Application.__init__(self, handlers, **settings)
