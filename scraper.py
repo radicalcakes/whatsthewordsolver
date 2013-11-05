@@ -3,6 +3,11 @@ import collections
 from bs4 import BeautifulSoup, NavigableString
 from urllib2 import urlopen
 
+import redis
+
+r = redis.StrictRedis(host="localhost", port=6379, db=9)
+
+pipe = r.pipeline()
 #globals
 d = collections.defaultdict(list)
 
@@ -19,7 +24,11 @@ def word_return(m):
 		word = tag.string
 		if only_text(word) and word[0] != " ":
 			w = word.split(" ")
-			d[len(w[0])].append(w[0].lower())
+			length = len(w[0])
+			full_word = w[0].lower()
+			pipe.sadd(length, full_word)
+			# d[length].append(full_word)
+	pipe.execute()
 
 def scrape():
 	urls = [make_soup("http://whats-theword.com/answers/whats-the-word-answers/"),
@@ -45,4 +54,4 @@ if __name__ == "__main__":
 	# print "Shield" in d[6]
 	# print "Earring" in d[7]
 	# print d
-	pickle.dump(d, open( "answers.p", "wb" ) )
+	# pickle.dump(d, open( "answers.p", "wb" ) )

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="ui-mobile">
+<head>
+	<title>What's the Word Solver</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	<link rel="stylesheet" href="static/style.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+</head>
+
+<body>
+<div data-role="header" data-theme="b" class="ui-header ui-bar-b" role="banner">
+    <h1 class="ui-title" role="heading" aria-level="1">What's The Word Solver</h1>
+</div>
+
+<div data-role="content" class="ui-content" role="main">
+<p style="text-align:center;">4 pics 1 word Solver coming soon. Enter the letters and length of clue to get a list of possible answers.</p>
+<form id="solverform" name="solver" method="post">
+<div class="ui-grid-a">
+    <div class="ui-block-a">
+    <label for="letters">
+  		Letters without spaces:     
+    </label>
+	<input type="text" style="font-size:170%" id="letters" name="letters" minlength="11" required>
+ </div>
+    <div class="ui-block-b">
+    <label for="length">
+    	Length: 
+    </label>
+	<select id="length" name="length">
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+	</select>
+	</div>
+</div><!-- /grid-a -->
+  
+	<input type="submit" value="Get Answer" data-theme="a">
+</form>
+<div class="answers">
+<h3>Answers:</h3>
+<hr>
+{% if answers %}
+	<ul>
+	{% for word in answers %}
+	<li>{{word}}</li>
+	{% end %}
+	</ul>
+{% end %}
+</div>
+<p style="text-align:center;">A Thien-Bach Production</p>
+<p style="color:#f9f9f9;font-size:2px;">Fuckin juice</p>
+</div>
+<script type="text/javascript">
+$(document).on('pageinit', function(){
+
+    $('#solverform').validate({ // initialize the plugin
+        rules: {
+            letters: {
+                required: true
+            }        
+        },
+        submitHandler: function (form) { // for demo
+             $(form).ajaxSubmit({
+                            url:"",
+                            type:"post",
+                            success: function(){
+                      }
+            }); 
+        }
+    });
+
+});
+</script>
+</body>
+</html>

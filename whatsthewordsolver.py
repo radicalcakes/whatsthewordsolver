@@ -1,4 +1,7 @@
 import cPickle as pickle
+import redis
+
+r = redis.StrictRedis(host="localhost", port=6379, db=9)
 
 d = pickle.load(open("answers.p", "rb"))
 
@@ -29,14 +32,20 @@ def return_num():
 def return_inputs(c,n):
 	return c(), n()
 
-def finder(tup):
-	for word in d[tup[1]]:
-		s = ""
-		for char in word:
-			if char in tup[0]:
-				s += char
-		if len(s) == tup[1]:
-			print s
+# def finder(tup):
+# 	for word in d[tup[1]]:
+# 		s = ""
+# 		for char in word:
+# 			if char in tup[0]:
+# 				s += char
+# 		if len(s) == tup[1]:
+# 			print s
+
+
+def redis_finder(tup):
+	answers = r.smembers(tup[1])
+	for word in answers:
+		print word
 
 if __name__ == "__main__":
-	finder(return_inputs(return_clue,return_num))
+	redis_finder(return_inputs(return_clue,return_num))

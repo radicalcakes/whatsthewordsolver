@@ -1,0 +1,17 @@
+.answers{
+	text-align: center;
+}
+
+ul{
+	margin-left:-3%;
+}
+
+li{
+	padding-bottom: 2%;
+	list-style-type: none;
+	font-size:180%;
+}
+
+h3{
+	font-size: 170%;
+}
